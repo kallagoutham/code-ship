@@ -1,0 +1,17 @@
+version: "3"
+services:
+  api:
+    image: kallagoutham/compiler-api:latest
+    security_opt:
+      - seccomp=unconfined
+    volumes:
+      - .:/COMPILERAPI
+  nginx:
+    image: nginx:latest
+    container_name: compiler-nginx
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+    depends_on:
+      - api
+    ports:
+      - 5000:5000
